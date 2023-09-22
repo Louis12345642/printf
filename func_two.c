@@ -66,30 +66,30 @@ int print_pointer(va_list types, char buffer[],
 int print_non_printable(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int i = 0, offset = 0;
-	char *str = va_arg(types, char *);
+	int j = 0, off = 0;
+	char *s = va_arg(types, char *);
 
 	UNUSED(flags);
 	UNUSED(width);
 	UNUSED(precision);
 	UNUSED(size);
 
-	if (str == NULL)
+	if (s == NULL)
 		return (write(1, "(null)", 6));
 
-	while (str[i] != '\0')
+	while (s[j] != '\0')
 	{
-		if (is_printable(str[i]))
-			buffer[i + offset] = str[i];
+		if (is_printable(s[j]))
+			buffer[j + off] = s[j];
 		else
-			offset += append_hexa_code(str[i], buffer, i + offset);
+			off += append_hexa_code(s[j], buffer, j + off);
 
-		i++;
+		j++;
 	}
 
-	buffer[i + offset] = '\0';
+	buffer[j + off] = '\0';
 
-	return (write(1, buffer, i + offset));
+	return (write(1, buffer, j + off));
 }
 
 /********print in reverse************/
@@ -107,33 +107,33 @@ int print_non_printable(va_list types, char buffer[],
 int print_reverse(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	char *str;
-	int i, count = 0;
+	char *s;
+	int i, total = 0;
 
 	UNUSED(buffer);
 	UNUSED(flags);
 	UNUSED(width);
 	UNUSED(size);
 
-	str = va_arg(types, char *);
+	s = va_arg(types, char *);
 
-	if (str == NULL)
+	if (s == NULL)
 	{
 		UNUSED(precision);
 
-		str = ")Null(";
+		s = ")Null(";
 	}
-	for (i = 0; str[i]; i++)
+	for (i = 0; s[i]; i++)
 		;
 
 	for (i = i - 1; i >= 0; i--)
 	{
-		char z = str[i];
+		char z = s[i];
 
 		write(1, &z, 1);
-		count++;
+		total++;
 	}
-	return (count);
+	return (total);
 }
 /**************print the string in rot13**************/
 /**
@@ -149,41 +149,41 @@ int print_reverse(va_list types, char buffer[],
 int print_rot13string(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	char x;
-	char *str;
+	char g;
+	char *s;
 	unsigned int i, j;
-	int count = 0;
+	int total = 0;
 	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 
-	str = va_arg(types, char *);
+	s = va_arg(types, char *);
 	UNUSED(buffer);
 	UNUSED(flags);
 	UNUSED(width);
 	UNUSED(precision);
 	UNUSED(size);
 
-	if (str == NULL)
-		str = "(AHYY)";
-	for (i = 0; str[i]; i++)
+	if (s == NULL)
+		s = "(AHYY)";
+	for (i = 0; s[i]; i++)
 	{
 		for (j = 0; in[j]; j++)
 		{
-			if (in[j] == str[i])
+			if (in[j] == s[i])
 			{
-				x = out[j];
-				write(1, &x, 1);
-				count++;
+				g = out[j];
+				write(1, &g, 1);
+				total++;
 				break;
 			}
 		}
 		if (!in[j])
 		{
-			x = str[i];
-			write(1, &x, 1);
-			count++;
+			g = s[i];
+			write(1, &g, 1);
+			total++;
 		}
 	}
-	return (count);
+	return (total);
 }
 
