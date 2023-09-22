@@ -74,14 +74,14 @@ int print_string(va_list types, char buffer[],
 
 	return (write(1, s, len));
 }
-/************************* PRINT PERCENT SIGN *************************/
+/**********prints the percentage here*******/
 /**
  * print_percent - Prints a percent sign
- * @types: Lista of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: get width.
- * @precision: Precision specification
+ * @types: show parameters
+ * @buffer: array of charaters
+ * @flags:  get the flags
+ * @width: find the width.
+ * @precision: find the precisionr
  * @size: Size specifier
  * Return: Number of chars printed
  */
@@ -97,58 +97,58 @@ int print_percent(va_list types, char buffer[],
 	return (write(1, "%%", 1));
 }
 
-/************************* PRINT INT *************************/
+/********prints any integer****************/
 /**
  * print_int - Print int
- * @types: Lista of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: get width.
- * @precision: Precision specification
+ * @types: show parameters
+ * @buffer: array of charaters
+ * @flags:  get the flags
+ * @width: find the width.
+ * @precision: find the precisionr
  * @size: Size specifier
  * Return: Number of chars printed
  */
 int print_int(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
-	int is_negative = 0;
-	long int n = va_arg(types, long int);
+	int j = BUFF_SIZE - 2;
+	int negative = 0;
+	long int a = va_arg(types, long int);
 	unsigned long int num;
 
-	n = convert_size_number(n, size);
+	a = convert_size_number(a, size);
 
-	if (n == 0)
-		buffer[i--] = '0';
+	if (a == 0)
+		buffer[j--] = '0';
 
 	buffer[BUFF_SIZE - 1] = '\0';
-	num = (unsigned long int)n;
+	num = (unsigned long int)a;
 
-	if (n < 0)
+	if (a < 0)
 	{
-		num = (unsigned long int)((-1) * n);
-		is_negative = 1;
+		num = (unsigned long int)((-1) * a);
+		negative = 1;
 	}
 
 	while (num > 0)
 	{
-		buffer[i--] = (num % 10) + '0';
+		buffer[j--] = (num % 10) + '0';
 		num /= 10;
 	}
 
-	i++;
+	j++;
 
-	return (write_number(is_negative, i, buffer, flags, width, precision, size));
+	return (write_number(negative, j, buffer, flags, width, precision, size));
 }
 
 /************************* PRINT BINARY *************************/
 /**
  * print_binary - Prints an unsigned number
- * @types: Lista of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: get width.
- * @precision: Precision specification
+ * @types: show parameters
+ * @buffer: array of charaters
+ * @flags:  get the flags
+ * @width: find the width.
+ * @precision: find the precisionr
  * @size: Size specifier
  * Return: Numbers of char printed.
  */
