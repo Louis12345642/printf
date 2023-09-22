@@ -10,7 +10,7 @@ void print_buffer(char buffer[], int *buff_ind);
 int _printf(const char *format, ...)
 {
 	int a, p = 0, p_chars = 0;
-	int flg, width, accuracy, s, buffer_ind = 0;
+	int flg, width, accuracy, s, buff_ind = 0;
 	va_list list;
 	char buffer[BUFF_SIZE];
 
@@ -23,15 +23,15 @@ int _printf(const char *format, ...)
 	{
 		if (format[a] != '%')
 		{
-			buffer[buffer_ind++] = format[a];
-			if (buffer_ind == BUFF_SIZE)
-				print_buffer(buffer, &buffer_ind);
+			buffer[buff_ind++] = format[a];
+			if (buff_ind == BUFF_SIZE)
+				print_buffer(buffer, &buff_ind);
 			/* write(1, &format[a], 1);*/
 			p_chars++;
 		}
 		else
 		{
-			print_buffer(buffer, &buffer_ind);
+			print_buffer(buffer, &buff_ind);
 			flg = get_flags(format, &a);
 			width = get_width(format, &a, list);
 			accuracy = get_precision(format, &a, list);
@@ -45,7 +45,7 @@ int _printf(const char *format, ...)
 		}
 	}
 
-	print_buffer(buffer, &buffer_ind);
+	print_buffer(buffer, &buff_ind);
 
 	va_end(list);
 
