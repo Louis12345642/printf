@@ -1,6 +1,6 @@
 #include "main.h"
 
-/************************* PRINT CHAR *************************/
+/**** This function prints characters ********/
 
 /**
  * print_char - prrint chars here
@@ -15,64 +15,64 @@
 int print_char(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	char c = va_arg(types, int);
+	char k = va_arg(types, int);
 
-	return (handle_write_char(c, buffer, flags, width, precision, size));
+	return (handle_write_char(k, buffer, flags, width, precision, size));
 }
-/************************* PRINT A STRING *************************/
+/**********This functon print the strings****************/
 /**
- * print_string - Prints a string
- * @types: List a of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: Number of chars printed
+ * print_string - this print the string
+ * @types: group of parameters
+ * @buffer: they take care of print
+ * @flags:  finds flags
+ * @width: get the width.
+ * @precision: get accuracy
+ * @size: Size finder
+ * Return: nmber of printed chararters
  */
 int print_string(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int length = 0, i;
-	char *str = va_arg(types, char *);
+	int len = 0, h;
+	char *s = va_arg(types, char *);
 
 	UNUSED(buffer);
 	UNUSED(flags);
 	UNUSED(width);
 	UNUSED(precision);
 	UNUSED(size);
-	if (str == NULL)
+	if (s == NULL)
 	{
-		str = "(null)";
+		s = "(null)";
 		if (precision >= 6)
-			str = "      ";
+			s = "      ";
 	}
 
-	while (str[length] != '\0')
-		length++;
+	while (s[len] != '\0')
+		len++;
 
-	if (precision >= 0 && precision < length)
-		length = precision;
+	if (precision >= 0 && precision < len)
+		len = precision;
 
-	if (width > length)
+	if (width > len)
 	{
 		if (flags & F_MINUS)
 		{
-			write(1, &str[0], length);
-			for (i = width - length; i > 0; i--)
+			write(1, &s[0], len);
+			for (h = width - len; h > 0; h--)
 				write(1, " ", 1);
 			return (width);
 		}
 		else
 		{
-			for (i = width - length; i > 0; i--)
+			for (h = width - len; h > 0; h--)
 				write(1, " ", 1);
-			write(1, &str[0], length);
+			write(1, &s[0], len);
 			return (width);
 		}
 	}
 
-	return (write(1, str, length));
+	return (write(1, s, len));
 }
 /************************* PRINT PERCENT SIGN *************************/
 /**
