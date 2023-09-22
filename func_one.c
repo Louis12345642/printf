@@ -35,7 +35,7 @@ int print_unsigned(va_list types, char buffer[],
 	return (write_unsgnd(0, j, buffer, flags, width, precision, size));
 }
 
-/************* PRINT UNSIGNED NUMBER IN OCTAL  ****************/
+/********this function print octal numbers******/
 /**
  * print_octal - Prints an unsigned number in octal notation
  * @types: show the list of parameters
@@ -50,31 +50,31 @@ int print_octal(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 
-	int i = BUFF_SIZE - 2;
-	unsigned long int num = va_arg(types, unsigned long int);
-	unsigned long int init_num = num;
+	int k = BUFF_SIZE - 2;
+	unsigned long int n = va_arg(types, unsigned long int);
+	unsigned long int number = n;
 
 	UNUSED(width);
 
-	num = convert_size_unsgnd(num, size);
+	n = convert_size_unsgnd(n, size);
 
-	if (num == 0)
-		buffer[i--] = '0';
+	if (n == 0)
+		buffer[k--] = '0';
 
 	buffer[BUFF_SIZE - 1] = '\0';
 
-	while (num > 0)
+	while (n > 0)
 	{
-		buffer[i--] = (num % 8) + '0';
-		num /= 8;
+		buffer[k--] = (n % 8) + '0';
+		n /= 8;
 	}
 
-	if (flags & F_HASH && init_num != 0)
-		buffer[i--] = '0';
+	if (flags & F_HASH && number != 0)
+		buffer[k--] = '0';
 
-	i++;
+	k++;
 
-	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
+	return (write_unsgnd(0, k, buffer, flags, width, precision, size));
 }
 
 /************** PRINT UNSIGNED NUMBER IN HEXADECIMAL **************/
